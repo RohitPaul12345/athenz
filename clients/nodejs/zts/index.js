@@ -116,9 +116,9 @@ class ZTSClient {
             });
         }
 
-        // if the client is adding new principal identity then we have to
-        // clear out the sia provider object reference so that we don't try
-        // to get a service token since we already have one given to us
+        /* if the client is adding new principal identity then we have to
+         clear out the sia provider object reference so that we don't try
+         to get a service token since we already have one given to us*/
         if (resetServiceDetails) {
             this._siaProvider = null;
         }
@@ -128,8 +128,8 @@ class ZTSClient {
     }
 
     _sameCredentialsAsBefore(svcPrincipal) {
-        // if we don't have a principal or no credentials
-        // then the principal has changed
+        /* if we don't have a principal or no credentials
+         then the principal has changed*/
         if (!this.principal) {
             return false;
         }
@@ -154,11 +154,11 @@ class ZTSClient {
             this._service
         );
 
-        // if we get no principal from our sia provider, then we
-        // should log and throw an IllegalArgumentException otherwise the
-        // client doesn't know that something bad has happened - in this
-        // case illegal domain/service was passed to the constructor
-        // and the ZTS Server just rejects the request with 401
+        /* if we get no principal from our sia provider, then we
+         should log and throw an IllegalArgumentException otherwise the
+         client doesn't know that something bad has happened - in this
+         case illegal domain/service was passed to the constructor
+         and the ZTS Server just rejects the request with 401*/
         if (!svcPrincipal) {
             const msg =
                 'UpdateServicePrincipal: Unable to get PrincipalToken ' +
@@ -203,8 +203,8 @@ class ZTSClient {
 
         let roleToken = null;
 
-        // first lookup in our cache to see if it can be satisfied
-        // only if we're not asked to ignore the cache
+        /*first lookup in our cache to see if it can be satisfied
+         only if we're not asked to ignore the cache*/
         let cacheKey = null;
         if (!cacheDisabled) {
             cacheKey = this._getRoleTokenCacheKeySetTenant(
@@ -230,8 +230,8 @@ class ZTSClient {
             if (err) {
                 return cb(err, null);
             }
-            // need to add the token to our cache. If our principal was
-            // updated then we need to retrieve a new cache key
+            /* need to add the token to our cache. If our principal was
+             updated then we need to retrieve a new cache key*/
 
             if (!cacheDisabled) {
                 if (cacheKey) {
@@ -284,8 +284,8 @@ class ZTSClient {
         maxExpiryTime,
         tokenMinExpiryTime
     ) {
-        // we'll first make sure if we're given both min and max expiry
-        // times then both conditions are satisfied
+        /* we'll first make sure if we're given both min and max expiry
+         times then both conditions are satisfied*/
         if (minExpiryTime && expiryTime < minExpiryTime) {
             return true;
         }
